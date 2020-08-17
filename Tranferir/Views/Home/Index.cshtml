@@ -1,0 +1,39 @@
+﻿
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<h2> BanBlue </h2>
+<p>Transferencia de la cuenta 1 a la 2</p>
+@if (Model != null)
+{
+    <form method="post">
+        <table class="table table-striped">
+            <thead>
+                <tr  class="table-active">
+                    <th>
+                        ID
+                    </th>
+                    <th>
+                        NOMBRE
+                    </th>
+                    <th>
+                        MONTO
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (Cuentas cuenta in Model)
+                {
+                    <tr class="table-secondary">
+                        <td>@cuenta.Id</td>
+                        <td>@cuenta.Nombre</td>
+                        <td>@cuenta.Dinero</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+        <button name="Cantidad" value="40" type="submit" class="btn-primary">Transferir un monto de 50$ </button>
+    </form>
+    <label>@ViewData["resultado"]</label>
+}
