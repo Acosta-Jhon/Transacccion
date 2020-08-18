@@ -1,0 +1,36 @@
+
+select * from Cuentas
+
+update Cuentas	set Apellido='Acosta',Cedula='1724306945',Digitos=123456789 where id = 1
+update Cuentas	set Apellido='Loyos',Cedula='1456422125',Digitos=987654321 where id = 2
+
+CREATE PROC [dbo].[SP_INSERT_CUENTAS]
+@nombre varchar(max),
+@dinero real,
+@apellido nvarchar(max),
+@cedula nvarchar(max),
+@digitos int
+as
+Begin 
+	insert into Cuentas values (@nombre,@dinero,@apellido,@cedula,@digitos)
+End
+go
+
+exec SP_INSERT_CUENTAS 'Rodrigo',500,'Lopez','156954632',786789123
+
+CREATE PROC [dbo].[SP_UPDATE_CUENTAS]
+@nombre varchar(max),
+@dinero int ,
+@apellido nvarchar(max),
+@cedula nvarchar(max),
+@digitos int
+as
+begin 
+update Cuentas set nombre=@nombre,dinero=@dinero,Apellido=@apellido,digitos = @digitos
+where  Cedula=@cedula
+end
+go
+
+select * from Cuentas
+
+exec SP_UPDATE_CUENTAS 'Jhon',5000,'Acosta','1724306945',54678312

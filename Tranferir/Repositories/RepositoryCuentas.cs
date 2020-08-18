@@ -50,13 +50,13 @@ namespace Tranferir.Repositories
                     this.context.GuardarCambios();
 
                     transaction.Commit();
-                    resultado = "Traspaso realizado con exito";
+                    resultado = "Transaccion Exitosa ✔️";
 
                 }
                 catch (Exception e)
                 {
                     transaction.Rollback();
-                    resultado = "El traspaso fracaso";
+                    resultado = "Trasaccion Fallida ❌";
                     Console.WriteLine(e.Message);
                 }
                 return resultado;

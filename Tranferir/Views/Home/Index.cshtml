@@ -11,45 +11,71 @@
 <p>Transferencia de la cuenta 1 a la 2</p>
 @if (Model != null)
 {
-    <form method="post">
-        <table class="table table-striped">
-            <thead>
-                <tr class="table-active">
-                    <th>
-                        ID
-                    </th>
-                    <th>
-                        NOMBRE
-                    </th>
-                    <th>
-                        MONTO
-                    </th>
-                    <th></th>
+<form method="post">
+    <table class="table table-striped">
+        <thead>
+            <tr class="table-active">
+                <th>
+                    ID
+                </th>
+                <th>
+                    NUMERO DE CUENTA
+                </th>
+                <th>
+                    CEDULA
+                </th>
+                <th>
+                    NOMBRE
+                </th>
+                <th>
+                    APELLIDO
+                </th>
+                <th>
+                    SALDO
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (Cuentas cuenta in Model)
+            {
+                <tr class="table-secondary">
+                    <td>
+                        @cuenta.Id
+                    </td>
+                    <td>
+                        @cuenta.Digitos
+                    </td>
+                    <td>
+                        @cuenta.Cedula
+                    </td>
+                    <td>
+                        @cuenta.Nombre
+                    </td>
+                    <td>
+                        @cuenta.Apellido
+                    </td>
+                    <td>
+                        @cuenta.Dinero
+                    </td>
+                    <td>
+                        <a asp-action="Edit" asp-route-id="@cuenta.Id">Editar</a> |
+                        <a asp-action="Details" asp-route-id="@cuenta.Id">Detalles</a> |
+                        <a asp-action="Delete" asp-route-id="@cuenta.Id">Eliminar</a>
+                    </td>
                 </tr>
-            </thead>
-            <tbody>
-                @foreach (Cuentas cuenta in Model)
-                {
-                    <tr class="table-secondary">
-                        <td>
-                            @cuenta.Id
-                        </td>
-                        <td>
-                            @cuenta.Nombre
-                        </td>
-                        <td>
-                            @cuenta.Dinero
-                        </td>
-                        <td>
-                            <a asp-action="Edit" asp-route-id="#">Editar</a> |
-                            <a asp-action="Details" asp-route-id="#">Detalles</a> |
-                            <a asp-action="Delete" asp-route-id="#">Eliminar</a>
-                        </td>
-                    </tr>
-                }
-            </tbody>
-        </table>
-        <button name="Cantidad" value="40" type="submit" class="btn-primary">Transferir un monto de 50$ </button>
-    </form>
+            }
+        </tbody>
+    </table>
+
+    <div class="input-group mb-3">
+        <input type="number" name="Cantidad" placeholder="Cantidad" class="form-control" />
+        <div class="input-group-append">
+            <input type="submit" value="Generar Tranferencia" class="btn btn-primary" />
+        </div>
+    </div>
+    <!--<button name="Cantidad" value="55" type="submit" class="btn-primary">Transferir un monto de 50$ </button> VALOR ESTATICO-->
+</form>
     <label>@ViewData["resultado"]</label>
 }
+<script>            </script>

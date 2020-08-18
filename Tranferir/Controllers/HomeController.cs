@@ -32,13 +32,15 @@ namespace Tranferir.Controllers
 
 
         }
-
+        /*------------------INDEX-------------------------*/
         [HttpPost]
         public IActionResult Index(int cantidad)
         {
             String resultado = this.repo.Traspaso(cantidad, 1, 2);
             return RedirectToAction("Index", new { result = resultado });
         }
+
+        /*------------------CREATE----------------------------*/
         public IActionResult Create()
         {
             return View();
@@ -65,6 +67,115 @@ namespace Tranferir.Controllers
                 return RedirectToAction(nameof(Index));
             }
             return View(cuentas);
+        }
+
+        /*--------------------------EDIT---------------------------*/
+        public async Task<IActionResult> Edit(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var varcuentas = await _context.Cuentas.SingleOrDefaultAsync(m=> m.Id == id);
+            if (varcuentas == null)
+            {
+                return NotFound();
+            }
+            return View(varcuentas);
+        }
+
+        [HttpPost]
+        
+        public IActionResult Edit(int id, [Bind("Id,Nombre,Dinero,Apellido,Cedula,Digitos")] Cuentas cuentas)
+        {
+            if (id != cuentas.Id)
+            {
+                return NotFound();
+            }
+
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    SqlConnection conn = (SqlConnection)_context.Database.GetDbConnection();
+                    SqlCommand cmd = conn.CreateCommand();
+                    conn.Open();
+                    cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                    cmd.CommandText = "SP_UPDATE_CUENTAS";
+                    cmd.Parameters.Add("@nombre", System.Data.SqlDbType.VarChar, 100).Value = cuentas.Nombre;
+                    cmd.Parameters.Add("@dinero", System.Data.SqlDbType.Real).Value = cuentas.Dinero;
+                    cmd.Parameters.Add("@apellido", System.Data.SqlDbType.NVarChar, 100).Value = cuentas.Apellido;
+                    cmd.Parameters.Add("@cedula", System.Data.SqlDbType.NVarChar, 10).Value = cuentas.Cedula;
+                    cmd.Parameters.Add("@digitos", System.Data.SqlDbType.Int).Value = cuentas.Digitos;
+                    cmd.ExecuteNonQuery();
+                    conn.Close();
+
+                    /* _context.Update(categoria);
+                     await _context.SaveChangesAsync();*/
+                }
+                catch (Exception er)
+                {
+                    Console.WriteLine(er.Message);
+                }
+                return RedirectToAction(nameof(Index));
+            }
+            return View(cuentas);
+        }
+        /*--------------------------DELETE-----------------------------*/
+        public async Task<IActionResult> Delete(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var varcuenta = await _context.Cuentas
+                .FirstOrDefaultAsync(m => m.Id == id);
+            if (varcuenta == null)
+            {
+                return NotFound();
+            }
+
+            return View(varcuenta);
+        }
+
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public IActionResult DeleteConfirmed(int id)
+        {
+            SqlConnection conn = (SqlConnection)_context.Database.GetDbConnection();
+            SqlCommand cmd = conn.CreateCommand();
+            conn.Open();
+            cmd.CommandType = System.Data.CommandType.StoredProcedure;
+            cmd.CommandText = "SP_ELIMINAR_CUENTAS";
+            cmd.Parameters.Add("@id", System.Data.SqlDbType.Int).Value = id;
+
+            cmd.ExecuteNonQuery();
+            conn.Close();
+            /*  var categoria = await _contex.Cuentas.FindAsync(id);
+              _context.Categoria.Remove(categoria);
+              await _context.SaveChangesAsync();*/
+
+            return RedirectToAction(nameof(Index));
+        }
+        /*----------------------DETAILS---------------------------*/
+
+        public async Task<IActionResult> Details(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var varCuenta = await _context.Cuentas
+                .FirstOrDefaultAsync(m => m.Id == id);
+            if (varCuenta == null)
+            {
+                return NotFound();
+            }
+
+            return View(varCuenta);
         }
 
 

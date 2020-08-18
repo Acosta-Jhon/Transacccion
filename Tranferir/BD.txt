@@ -45,3 +45,14 @@ AS
 		RAISERROR (15600,-1,-1,'TRIGGER DINERO');
 	END
 GO
+
+--------------------DELETE------------------------------------------------
+
+@id int
+as
+	delete CUENTAS where id = @id
+go
+
+EXEC SP_ELIMINAR_CUENTAS 5 
+
+select * from CUENTAS
