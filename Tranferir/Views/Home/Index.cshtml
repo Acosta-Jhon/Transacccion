@@ -1,16 +1,20 @@
-﻿
+﻿@model IEnumerable<Tranferir.Models.Cuentas>
 @{
     ViewData["Title"] = "Home Page";
 }
 
 <h2> BanBlue </h2>
+
+<p>
+    <a asp-action="Create">Registrar Cuenta</a>
+</p>
 <p>Transferencia de la cuenta 1 a la 2</p>
 @if (Model != null)
 {
     <form method="post">
         <table class="table table-striped">
             <thead>
-                <tr  class="table-active">
+                <tr class="table-active">
                     <th>
                         ID
                     </th>
@@ -20,15 +24,27 @@
                     <th>
                         MONTO
                     </th>
+                    <th></th>
                 </tr>
             </thead>
             <tbody>
                 @foreach (Cuentas cuenta in Model)
                 {
                     <tr class="table-secondary">
-                        <td>@cuenta.Id</td>
-                        <td>@cuenta.Nombre</td>
-                        <td>@cuenta.Dinero</td>
+                        <td>
+                            @cuenta.Id
+                        </td>
+                        <td>
+                            @cuenta.Nombre
+                        </td>
+                        <td>
+                            @cuenta.Dinero
+                        </td>
+                        <td>
+                            <a asp-action="Edit" asp-route-id="#">Editar</a> |
+                            <a asp-action="Details" asp-route-id="#">Detalles</a> |
+                            <a asp-action="Delete" asp-route-id="#">Eliminar</a>
+                        </td>
                     </tr>
                 }
             </tbody>
