@@ -51,7 +51,6 @@ namespace Tranferir.Repositories
 
                     transaction.Commit();
                     resultado = "Transaccion Exitosa ✔️";
-
                 }
                 catch (Exception e)
                 {
