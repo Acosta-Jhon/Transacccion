@@ -3,34 +3,34 @@
     ViewData["Title"] = "Home Page";
 }
 
-<h2> BanBlue </h2>
+<h2 class="text-center text-primary"> BanBlue 💳 </h2>
 
 <p>
-    <a asp-action="Create">Registrar Cuenta</a>
+    <a asp-action="Create" class="text-primary">Registrar Cuenta</a>
 </p>
 <p>Transferencia de la cuenta 1 a la 2</p>
 @if (Model != null)
 {
 <form method="post">
-    <table class="table table-striped">
+    <table class="table table-striped table-dark">
         <thead>
-            <tr class="table-active">
-                <th>
+            <tr class="table-active">   
+                <th scope="col">
                     ID
                 </th>
-                <th>
+                <th scope="col">
                     NUMERO DE CUENTA
                 </th>
-                <th>
+                <th scope="col">
                     CEDULA
                 </th>
-                <th>
+                <th scope="col">
                     NOMBRE
                 </th>
-                <th>
+                <th scope="col">
                     APELLIDO
                 </th>
-                <th>
+                <th scope="col">
                     SALDO
                 </th>
                 <th></th>
@@ -39,8 +39,8 @@
         <tbody>
             @foreach (Cuentas cuenta in Model)
             {
-                <tr class="table-secondary">
-                    <td>
+                <tr>
+                    <td scope="row">
                         @cuenta.Id
                     </td>
                     <td>
@@ -78,4 +78,3 @@
 </form>
     <label>@ViewData["resultado"]</label>
 }
-<script>            </script>

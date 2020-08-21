@@ -11,35 +11,40 @@
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="Create" method="post">
+        <form asp-action="Create" method="post" name="forma">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <div class="form-group">
-                    <label asp-for="Digitos" class="control-label"></label>
-                    <input asp-for="Digitos" class="form-control" />
-                    <span asp-validation-for="Digitos" class="text-danger"></span>
+                    <div class="input-group mb-3">
+                        <p>Digitos</p>
+                        <input asp-for="Digitos" type="number" class="form-control form-control-sm" id="digitos" placeholder="Generar numero de Cuenta" readonly />
+                        <div class="input-group-append">
+                            <input id="generador" type="button" value="💳" onclick="randomico()" />
+                            <span asp-validation-for="Digitos" class="text-danger"></span>
+                        </div>
+                    </div>
                 </div>
                 <label asp-for="Cedula" class="control-label"></label>
-                <input asp-for="Cedula" class="form-control" />
+                <input asp-for="Cedula" class="form-control form-control-sm" placeholder="Ingrese su numero de cedula"/>
                 <span asp-validation-for="Cedula" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Nombre" class="control-label"></label>
-                <input asp-for="Nombre" class="form-control" />
+                <input asp-for="Nombre" class="form-control form-control-sm" placeholder="Ingrese sus nombres"/>
                 <span asp-validation-for="Nombre" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Apellido" class="control-label"></label>
-                <input asp-for="Apellido" class="form-control" />
+                <input asp-for="Apellido" class="form-control form-control-sm" placeholder="Ingrese sus apellidos"/>
                 <span asp-validation-for="Apellido" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Dinero" class="control-label"></label>
-                <input asp-for="Dinero" class="form-control" />
+                <input asp-for="Dinero" class="form-control form-control-sm" placeholder="Ingrese un monto de dinero" />
                 <span asp-validation-for="Dinero" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
+                <input type="submit" value="Crear" class="btn btn-primary" />
             </div>
         </form>
     </div>
@@ -49,3 +54,10 @@
     <a asp-action="Index">Regresar</a>
 </div>
 
+<script type="text/javascript">
+    function randomico() {
+        let num = parseInt(Math.random() * 1000000000)
+        document.forma.digitos.value = num;
+        document.getElementById('generador').style.display = "readOnly";
+    }
+</script>

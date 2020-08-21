@@ -56,3 +56,18 @@ go
 EXEC SP_ELIMINAR_CUENTAS 5 
 
 select * from CUENTAS
+
+--------------------RESETEAR ID IDENTITY------------------------------
+
+
+update CUENTAS set id=1 where nombre='Jhon'
+delete from CUENTAS
+select * from CUENTAS
+
+insert into CUENTAS (nombre,Apellido,Cedula,dinero,Digitos)values ('Jhon','Acosta','741852963',50000,789565123)
+insert into CUENTAS (nombre,Apellido,Cedula,dinero,Digitos)values ('Dome','Burbano','85274196',50000,567891235)
+
+select * from CUENTAS
+
+DBCC CHECKIDENT('dbo.CUENTAS', NORESEED )
+DBCC CHECKIDENT( 'dbo.CUENTAS' , RESEED,0); 
